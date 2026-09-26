@@ -23,9 +23,10 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install google-generativeai requests
+        run: pip install -r requirements.txt
 
       - name: Run AI review
+        working-directory: src
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
