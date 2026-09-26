@@ -7,7 +7,11 @@ authors = [
     { name = "Manav Jungi", email = "110090635+manavjungi@users.noreply.github.com" }
 ]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "google-generativeai>=0.8.6",
+    "numpy>=2.5.3",
+    "requests>=2.34.2",
+]
 
 [project.scripts]
 pr-sage = "pr_sage:main"
