@@ -45,6 +45,7 @@ def post_comment(body):
 
 if __name__ == "__main__":
     diff = get_diff()
+    x = 10  
     if not diff.strip():
         print("No diff found, skipping review.")
     else:
