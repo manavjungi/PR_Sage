@@ -12,7 +12,7 @@ BASE_SHA = os.environ["BASE_SHA"]
 HEAD_SHA = os.environ["HEAD_SHA"]
 
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-2.5-flash")
+model = genai.GenerativeModel("gemini-3.8-flash")
 
 def get_diff():
     result = subprocess.run(
@@ -45,6 +45,7 @@ def post_comment(body):
 
 if __name__ == "__main__":
     diff = get_diff()
+    x = 10  
     if not diff.strip():
         print("No diff found, skipping review.")
     else:
