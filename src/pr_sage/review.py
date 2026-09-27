@@ -19,21 +19,26 @@ def main():
     base_sha = os.environ["BASE_SHA"]
     head_sha = os.environ["HEAD_SHA"]
 
+    # New: where is the repo we're actually reviewing?
+    # Defaults to "../../" so your own PR_Sage workflow keeps working unchanged.
+    target_repo_path = os.environ.get("TARGET_REPO_PATH", "../../")
+    top_k = int(os.environ.get("TOP_K", "3"))
+
     configure(gemini_key)
 
-    diff = get_diff(base_sha, head_sha)
+    diff = get_diff(base_sha, head_sha, repo_path=target_repo_path)
     if not diff.strip():
         print("No diff found, skipping review.")
         return
 
-    print("Chunking repo...")
-    chunks = chunk_repo(root_dir="../../")
+    print(f"Chunking repo at {target_repo_path}...")
+    chunks = chunk_repo(root_dir=target_repo_path)
     print(f"Found {len(chunks)} chunks. Embedding...")
     embedded_chunks = embed_chunks(chunks)
 
     print("Embedding diff for retrieval...")
     diff_embedding = embed_text(diff)
-    top_chunks = get_top_k_chunks(diff_embedding, embedded_chunks, k=3)
+    top_chunks = get_top_k_chunks(diff_embedding, embedded_chunks, k=top_k)
     print(f"Retrieved context from: {[c['file'] for c in top_chunks]}")
 
     prompt = build_review_prompt(diff, context_chunks=top_chunks)

@@ -6,6 +6,6 @@ def post_comment(repo: str, pr_number: str, token: str, body: str):
         "Authorization": f"Bearer {token}",
         "Accept": "application/vnd.github+json",
     }
-    payload = {"body": f"### 🤖 AI Code Review\n\n{body}"}
+    payload = {"body": f"### 🤖 PR Sage Blessings\n\n{body}"}
     r = requests.post(url, json=payload, headers=headers)
     r.raise_for_status()
