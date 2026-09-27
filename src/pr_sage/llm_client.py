@@ -1,11 +1,12 @@
-import google.generativeai as genai
+from gemini_client import get_client
 
 MODEL_NAME = "gemini-flash-latest"
 
-def configure(api_key: str):
-    genai.configure(api_key=api_key)
 
 def generate_review(prompt: str) -> str:
-    model = genai.GenerativeModel(MODEL_NAME)
-    response = model.generate_content(prompt)
+    client = get_client()
+    response = client.models.generate_content(
+        model=MODEL_NAME,
+        contents=prompt,
+    )
     return response.text

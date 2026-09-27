@@ -1,16 +1,18 @@
-import google.generativeai as genai
+from gemini_client import get_client
 
-EMBED_MODEL = "models/text-embedding-004"
+EMBED_MODEL = "gemini-embedding-001"
 
 
 def embed_text(text: str) -> list[float]:
-    """Get an embedding vector for a single piece of text."""
-    result = genai.embed_content(model=EMBED_MODEL, content=text)
-    return result["embedding"]
+    client = get_client()
+    result = client.models.embed_content(
+        model=EMBED_MODEL,
+        contents=text,
+    )
+    return result.embeddings[0].values
 
 
 def embed_chunks(chunks: list[dict]) -> list[dict]:
-    """Embed each chunk's content; return chunks with an added 'embedding' key."""
     embedded = []
     for chunk in chunks:
         try:
