@@ -6,7 +6,8 @@ from chunker import chunk_repo
 from embeddings import embed_text, embed_chunks
 from retriever import get_top_k_chunks
 from prompts import build_review_prompt
-from gemini_client import configure  
+from gemini_client import configure
+from llm_client import generate_review
 from github_api import post_comment
 
 
