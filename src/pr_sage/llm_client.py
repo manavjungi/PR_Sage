@@ -1,11 +1,14 @@
-import google.generativeai as genai
+from gemini_client import get_client
+from retry_utils import retry_with_backoff
 
 MODEL_NAME = "gemini-flash-latest"
 
-def configure(api_key: str):
-    genai.configure(api_key=api_key)
 
+@retry_with_backoff(max_attempts=3, base_delay=2.0)
 def generate_review(prompt: str) -> str:
-    model = genai.GenerativeModel(MODEL_NAME)
-    response = model.generate_content(prompt)
+    client = get_client()
+    response = client.models.generate_content(
+        model=MODEL_NAME,
+        contents=prompt,
+    )
     return response.text
