@@ -8,16 +8,6 @@ Most AI reviewers only see the lines that changed. PR Sage uses Retrieval-Augmen
 
 ---
 
-## Demo
-
-A PR changes `divide(a, b)` to require a third `precision` argument. The diff only touches `calculator.py`, but the review flags that `main.py` still calls `divide(10, 2)` and will raise a `TypeError`.
-
-| Diff only (no RAG) | With RAG (PR Sage) |
-|---|---|
-| ![without rag](docs/without-rag.png) | ![with rag](docs/with-rag.png) |
-
----
-
 ## Quick start (use it in your own repo)
 
 **1. Add your Gemini API key as a repository secret**
